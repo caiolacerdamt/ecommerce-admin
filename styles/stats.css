@@ -1,0 +1,20 @@
+.tilesGrid {
+    @apply grid grid-cols-1 sm:grid-cols-3 gap-4;
+}
+
+.tile {
+    @apply bg-white shadow-md p-2 text-blue-950 text-center;
+}
+
+.tileHeader {
+    @apply uppercase text-gray-700 text-xs text-center font-bold m-0;
+}
+
+.tileNumber {
+    @apply text-3xl text-center mt-1 font-bold;
+}
+
+.tileDesc {
+    @apply text-xs text-gray-500;
+}
+
