@@ -39,9 +39,6 @@ function SettingsPage({ swal, images: existingImages }) {
     await axios.get('/api/settings?name=instagram').then((res) => {
       setInstagram(res.data?.value);
     })
-    await axios.get('/api/settings?name=images').then((res) => {
-      setImages(res.data?.value)
-    })
   }
 
   async function saveSettings() {
@@ -62,39 +59,12 @@ function SettingsPage({ swal, images: existingImages }) {
       name: 'instagram',
       value: instagram
     })
-    await axios.put('/api/settings',{
-      name: 'images',
-      value: images,
-    })
     setIsLoading(false);
 
     swal.fire({
       title: "Configurações Salvas",
       icon: "success",
     });
-  }
-
-  async function uploadImages(e) {
-    const files = e.target?.files;
-    if (files?.length > 0) {
-      setIsUploading(true);
-      const data = new FormData();
-
-      for (const file of files) {
-        data.append("file", file);
-      }
-
-      const res = await axios.post("/api/upload", data);
-
-      setImages((oldImages) => {
-        return [...oldImages, ...res.data.links];
-      });
-      setIsUploading(false);
-    }
-  }
-
-  function updateImagesOrder(images) {
-    setImages(images);
   }
 
   return (
@@ -115,37 +85,6 @@ function SettingsPage({ swal, images: existingImages }) {
                 </option>
               ))}
           </select>
-
-
-          <label>Banner da Loja</label>
-          <div className="mb-2 flex flex-wrap gap-1">
-        <ReactSortable
-          className="flex flex-wrap gap-1"
-          list={images}
-          setList={updateImagesOrder}
-        >
-          {!!images?.length &&
-            images.map((link) => (
-              <div key={link} className="h-24 bg-white p-4 shadow-sm rounded-sm border border-gray-200">
-                <img src={link} alt="" className="rounded-lg" />
-              </div>
-            ))}
-        </ReactSortable>
-        {isUploading && (
-          <div className="h-24 p-1 flex items-center">
-            <Spinner />
-          </div>
-        )}
-        <label className="bg-white shadow-sm border border-gray-200 cursor-pointer w-24 h-24 text-center flex items-center justify-center flex-col text-primary rounded-sm">
-          <Upload />
-          <div className="text-sm">Adicionar</div>
-          <input type="file" onChange={uploadImages} className="hidden" />
-        </label>
-      </div>
-
-
-
-
           <label>Frete (R$)</label>
           <input
             type="number"
