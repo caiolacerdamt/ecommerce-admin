@@ -58,7 +58,7 @@ localhost:3000
 
 ## 💼 Licença
 
-Este projeto está licenciado sob a [Licença MIT](LICENSE).
+Este projeto está licenciado sob a [Licença MIT](LICENSE.md).
 
 <br> <br> 
 
